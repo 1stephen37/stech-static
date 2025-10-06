@@ -1,6 +1,6 @@
 "use client";
 import {motion} from "framer-motion";
-import React, { useEffect, useState} from 'react';
+import React, {FormEvent, FormEventHandler, useEffect, useState} from 'react';
 import Link from "next/link";
 import {FaSearch} from "react-icons/fa";
 import {LuShoppingCart} from "react-icons/lu";
@@ -17,7 +17,6 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import {useAppSelector, useAppDispatch} from '@/redux/hooks'
-// import {searchChange} from "@/redux/reducers/search.reducer";
 import {getInitialFromLocalStorage, logOut} from '@/redux/reducers/user.reducer'
 import {useRouter} from 'next/navigation';
 // import ProductsModel from "@/models/products/products.model";
@@ -35,38 +34,11 @@ import {ImProfile} from "react-icons/im";
 import {MdLogout} from "react-icons/md";
 import {getCartFromLocalStorage} from "@/redux/reducers/cart.reducer";
 import {MdOutlineHistory} from "react-icons/md";
+import {useAppContext} from "@/context/AppContext";
 // import Confirm from "@/components/Confirm";
 // import Alert from "@/components/Alert";
 // import BrandsModel from "@/models/brands/brands.model";
 // import {getLinkFromLocalStorage, linkChange, saveLinkToLocalStorage} from "@/redux/reducers/router.reducer";
-
-// const imagesBrands = [
-//     {
-//         name: 'iphone',
-//         src: 'iphoneBrands.png'
-//     },
-//     {
-//         name: 'samsung',
-//         src: 'samsung-logo.png'
-//     },
-//     {
-//         name: 'xiaomi',
-//         src: 'xiaomiLogo.png'
-//     },
-//     {
-//         name: 'oppo',
-//         src: 'oppo-brand-logo.png'
-//     },
-//     {
-//         name: 'realme',
-//         src: 'realmeLogo.png'
-//     },
-//     {
-//         name: 'vivo',
-//         src: 'Vivo-Logo.png'
-//     },
-//
-// ]
 
 const links = [
     {
@@ -86,15 +58,16 @@ const links = [
     },
 ]
 
-function MainHeader() {
-    const dispatch = useAppDispatch()
+export default function Header() {
+    const dispatch = useAppDispatch();
+
     const router = useRouter();
     // const {data: brandsList} = BrandsModel.GetBrandsByLimit(10);
     // const {data: productsList} = ProductsModel.GetSaleProducts(0, 4);
-    // const [showSearchBox, setShowSearchBox] = useState(false);
-    const [showConfirmLogOut, setShowConfirmLogOut] = useState(false);
-    const [showAlertLogOut, setShowAlertLogOut] = useState(false);
-    const [isLogOut, setIsLogOut] = useState(false);
+    const [showSearchBox, setShowSearchBox] = useState(false);
+    // const [showConfirmLogOut, setShowConfirmLogOut] = useState(false);
+    // const [showAlertLogOut, setShowAlertLogOut] = useState(false);
+    // const [isLogOut, setIsLogOut] = useState(false);
     const [cartLength, setCartLength] = useState(0);
     const [header, setHeader] = useState(false);
     useEffect(() => {
@@ -105,7 +78,7 @@ function MainHeader() {
         return () => window.removeEventListener('scroll', listenerScroll);
     }, []);
     const path = usePathname();
-    // const search = useAppSelector((state) => state.search.searchContent);
+    const {searchContent, setSearchContent} = useAppContext();
     const isLogin = useAppSelector((state) => state.user.isLogin);
     const userInformation = useAppSelector((state) => state.user.user);
     const cart = useAppSelector((state) => state.cart.cart);
@@ -125,27 +98,27 @@ function MainHeader() {
     }, [cart]);
 
     // const {data: productsListSearch, isLoading: isSearching} = ProductsModel.GetProductsByKeyword(4, search);
-    // const handleSearchSubmit: FormEventHandler<HTMLFormElement> = (event: FormEvent<HTMLFormElement>) => {
-    //     event.preventDefault();
-    //     router.push(`/products?search=${search}`);
-    // };
+    const handleSearchSubmit: FormEventHandler<HTMLFormElement> = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        router.push(`/products?search=${searchContent}`);
+    };
 
-    // const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     dispatch(searchChange(e.target.value));
-    //     if (e.target.value.length === 0) {
-    //         setShowSearchBox(false)
-    //     } else {
-    //         setShowSearchBox(true);
-    //     }
-    // }
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchContent(e.target.value);
+        if (e.target.value.length === 0) {
+            setShowSearchBox(false)
+        } else {
+            setShowSearchBox(true);
+        }
+    }
 
-    // const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     if (search === '') {
-    //         setShowSearchBox(false)
-    //     } else {
-    //         setShowSearchBox(true)
-    //     }
-    // }
+    const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (searchContent === '') {
+            setShowSearchBox(false)
+        } else {
+            setShowSearchBox(true)
+        }
+    }
 
     // const handleLogOut = () => {
     //     dispatch(linkChange(path))
@@ -248,33 +221,33 @@ function MainHeader() {
                         </NavigationMenu>
                     </div>
                     <div className="w-max flex items-center gap-5 relative">
-                        {/*<form onSubmit={handleSearchSubmit} className="relative h-max">*/}
-                        {/*    <input*/}
-                        {/*        value={search}*/}
-                        {/*        onChange={handleInputChange}*/}
-                        {/*        onBlur={() => setTimeout(() => setShowSearchBox(false), 250)}*/}
-                        {/*        onFocus={handleInputFocus}*/}
-                        {/*        className="text-[1.6rem] pl-[1rem] border-[0.2px] border-solid border-primary pr-[2.5rem] rounded-[5px] w-[60rem] h-[5rem] outline-none"*/}
-                        {/*        placeholder="Bạn đang tìm gì ?" type="text"/>*/}
-                        {/*    <button type='submit'>*/}
-                        {/*        <FaSearch*/}
-                        {/*            className="absolute text-primary top-5 right-4 font-black cursor-pointer text-[2rem]"/>*/}
-                        {/*    </button>*/}
-                        {/*    {showSearchBox && (*/}
-                        {/*        <div onClick={() => setShowSearchBox(true)}*/}
-                        {/*             className="absolute group: px-8 py-5 border border-solid border-black bg-white shadow-md  rounded w-full h-max top-[7rem] grid grid-cols-2 gap-5">*/}
-                        {/*            {productsListSearch && productsListSearch.map((product, index) => (*/}
-                        {/*                <BoxProductSearch name={product.name} image={product.image}*/}
-                        {/*                                  sale={product.sale_off} price={product.price.toString()}*/}
-                        {/*                                  key={index} brand={product.brand_name} id={product.id_product}*/}
-                        {/*                                  index={index}/>*/}
-                        {/*            ))}*/}
-                        {/*            {productsListSearch && productsListSearch.length <= 0 && (*/}
-                        {/*                <p className="text-2xl">Không tìm thấy sản phẩm phù hợp</p>*/}
-                        {/*            )}*/}
-                        {/*        </div>*/}
-                        {/*    )}*/}
-                        {/*</form>*/}
+                        <form onSubmit={handleSearchSubmit} className="relative h-max">
+                            <input
+                                value={searchContent}
+                                onChange={handleInputChange}
+                                onBlur={() => setTimeout(() => setShowSearchBox(false), 250)}
+                                onFocus={handleInputFocus}
+                                className="text-[1.6rem] pl-[1rem] border-[0.2px] border-solid border-primary pr-[2.5rem] rounded-[5px] w-[60rem] h-[5rem] outline-none"
+                                placeholder="Bạn đang tìm gì ?" type="text"/>
+                            <button type='submit'>
+                                <FaSearch
+                                    className="absolute text-primary top-5 right-4 font-black cursor-pointer text-[2rem]"/>
+                            </button>
+                            {showSearchBox && (
+                                <div onClick={() => setShowSearchBox(true)}
+                                     className="absolute group: px-8 py-5 border border-solid border-black bg-white shadow-md  rounded w-full h-max top-[7rem] grid grid-cols-2 gap-5">
+                                    {/*{productsListSearch && productsListSearch.map((product, index) => (*/}
+                                    {/*    <BoxProductSearch name={product.name} image={product.image}*/}
+                                    {/*                      sale={product.sale_off} price={product.price.toString()}*/}
+                                    {/*                      key={index} brand={product.brand_name} id={product.id_product}*/}
+                                    {/*                      index={index}/>*/}
+                                    {/*))}*/}
+                                    {/*{productsListSearch && productsListSearch.length <= 0 && (*/}
+                                    {/*    <p className="text-2xl">Không tìm thấy sản phẩm phù hợp</p>*/}
+                                    {/*)}*/}
+                                </div>
+                            )}
+                        </form>
 
                         {/*<Sheet>*/}
                         {/*    <SheetTrigger asChild>*/}
@@ -363,4 +336,3 @@ function MainHeader() {
         ;
 }
 
-export default MainHeader;

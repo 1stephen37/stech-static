@@ -15,12 +15,10 @@ type Product = {
     index: number
 }
 
-function BoxProductSearch({id, name, image, brand, price, sale, index}: Product) {
+function BoxProductSearch({id, name, image, price, sale}: Product) {
     const router = useRouter()
     const handleDetailProduct = () => {
-        console.log(1321);
         router.push(`/products/${id}`);
-
     }
 
     return (
