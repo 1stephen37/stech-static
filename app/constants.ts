@@ -1,129 +1,4 @@
-export const ApiUrl = 'http://localhost:3000/api/';
 export const ApiImage = '/images/uploads/';
-export const GoogleApiUrl = 'https://www.googleapis.com/oauth2/v1/userinfo';
-
-export const tableName = {
-    brands: 'brands',
-    users: 'users',
-    products: 'products',
-    reviews: 'reviews',
-    deliveries: "deliveries",
-    vouchers: "vouchers",
-    shop: 'shop',
-    orders: 'orders',
-    dashboard: 'dashboard',
-    banners: "banners",
-}
-
-export const clientId = "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?gsiwebsdk=3&client_id=304531247476-58f940f3b0dgrupg95cdo8b51fspupdv.apps.googleusercontent.com&scope=openid%20profile%20email&redirect_uri=storagerelay%3A%2F%2Fhttps%2Freact-oauth.vercel.app%3Fid%3Dauth641516&prompt=consent&access_type=offline&response_type=code&include_granted_scopes=true&enable_granular_consent=true&service=lso&o2v=2&ddm=0&flowName=GeneralOAuthFlow";
-
-export const FetchGet = (url: string) => fetch(url, {
-    headers: {'Content-Type': 'application/json'},
-    method: "GET"
-}).then(res => res.json()).catch(err => err.message);
-
-export const FetchGetWithContinueUrl = async (url: string, {arg}: { arg: { continueUrl?: string } }) => {
-    console.log(arg.continueUrl);
-    return fetch(url + arg?.continueUrl, {
-        headers: {'Content-Type': 'application/json'},
-        method: 'GET',
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
-
-export const FetchGetWithToken = async (url: string, {arg}: { arg: { token: string } }) => {
-    return fetch(url, {
-        headers: {
-            'Content-Type': 'application/json',
-            "authorization": "Bearer " + arg.token
-        },
-        method: 'GET',
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
-
-export const FetchGetWithTokenAndDynamicIdUser = async (url: string, {arg}: {
-    arg: { token: string, id_user: string }
-}) => {
-    return fetch(url + `?id_user=${arg.id_user}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            "authorization": "Bearer " + arg.token
-        },
-        method: 'GET',
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
-
-export const FetchPostWithTokenFormData = async (url: string, {arg}: {
-    arg: { token: string, data: any }
-}) => {
-    const formData = new FormData();
-    for (const key in arg.data) {
-        formData.append(key, arg.data[key]);
-    }
-    console.log(JSON.stringify(formData));
-    return fetch(url, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-            "authorization": "Bearer " + arg.token
-        },
-        method: 'POST',
-        body: formData
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
-
-
-// export const FetchPost = async (url: string, { body } : {body : {}}) => fetch(url, {
-//     headers: {'Content-Type': 'application/json'},
-//     method: "POST",
-//     body: JSON.stringify(body)
-// }).then(res => res.json());
-
-export async function FetchPostWithToken(url: string, {arg}: { arg: { token: string, data: any } }) {
-    return fetch(url, {
-        headers: {
-            'Content-Type': 'application/json',
-            "authorization": "Bearer " + arg.token
-        },
-        method: 'POST',
-        body: JSON.stringify(arg.data),
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
-
-export async function FetchPatchWithTokenUpdate(url: string, {arg}: { arg: { token: string, data: any, id: string } }) {
-    return fetch(url + `/update/${arg.id}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            "authorization": "Bearer " + arg.token
-        },
-        method: 'PATCH',
-        body: JSON.stringify(arg.data),
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
-
-export async function FetchDeleteWithTokenDelete(url: string, {arg}: { arg: { token: string, id: string } }) {
-    return fetch(url + `/delete/${arg.id}`, {
-        headers: {
-            'Content-Type': 'application/json',
-            "authorization": "Bearer " + arg.token
-        },
-        method: 'DELETE',
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
-
-export async function FetchPost(url: string, {arg}: { arg: {} }) {
-    return fetch(url, {
-        headers: {'Content-Type': 'application/json'},
-        method: 'POST',
-        body: JSON.stringify(arg),
-    }).then(res => res.json())
-        .catch((err) => err.message)
-}
 
 export const transformCurrency = (value: number): string => {
     return new Intl.NumberFormat('vi-VN', {
@@ -133,48 +8,7 @@ export const transformCurrency = (value: number): string => {
     }).format(value);
 }
 
-
-export const ProductStatus = {
-    0: "hết hàng",
-    1: "đang bán",
-    2: "xảy ra lỗi"
-} as const;
-
-export const DeliveryStatus = {
-    0: "ngưng hoạt động",
-    1: "đang hoạt động",
-    2: "đang quá tải"
-} as const;
-
-export const UserRole = {
-    0: "khách hàng",
-    1: "quản trị viên"
-} as const;
-
-export const BrandStatus = {
-    0: "tạm ngừng kinh doanh",
-    1: "đang hoạt động"
-} as const;
-
-export const OrderStatus = {
-    0: "Chờ xác nhận",
-    1: "Đã xác nhận",
-    2: "Đang giao hàng",
-    3: "Đã giao hàng",
-    4: "Đã hủy",
-} as const;
-
-export type UserRoleKey = keyof typeof UserRole;
-
-export type BrandStatusKey = keyof typeof BrandStatus;
-
-export type OrderStatusKey = keyof typeof OrderStatus;
-
-export type ProductStatusKey = keyof typeof ProductStatus;
-
-export type DeliveryStatusKey = keyof typeof DeliveryStatus;
-
-export const products : ProductBox[] = [
+export const products: ProductBox[] = [
     {
         "id_product": 1,
         "id_brand": "1",
@@ -945,5 +779,312 @@ export const brands = [
         "name": "techno",
         "logo": "logo-tecno-big-220x48.png",
         "status": 1
+    }
+]
+
+export const shop = {
+    "id_shop": 1,
+    "name": "Stech",
+    "address": "Công viên phần mềm Quang Trung, Tân Chánh Hiệp, Quận 12, thành phố Hồ Chí Minh",
+    "email": "stechsupport@gmail.com",
+    "phone": "0338015138",
+    "status": 1
+}
+
+export const detailProductData = {
+    "id_product": 1,
+    "id_brand": "1",
+    "name": "iPhone 11 | Chính hãng VN/A",
+    "sale_off": 10,
+    "views": "500",
+    "status": 1,
+    "created_at": "2024-07-05",
+    "updated_at": "2024-07-05",
+    "brand_name": "apple",
+    "options":
+        [
+            {
+                "color": "Trắng",
+                "price": "11990000",
+                "quantity": 500,
+                "memory": "4GB/64GB",
+                "image": "iphone-11.webp"
+            },
+            {
+                "color": "Đen",
+                "price": "11990000",
+                "quantity": 500,
+                "memory": "4GB/64GB",
+                "image": "iphone-11-black-4GB-64GB_130.webp"
+            },
+            {
+                "color": "Xanh lá nhạt",
+                "price": "12800000",
+                "quantity": 500,
+                "memory": "4GB/64GB",
+                "image": "iphone-11-4GB-64GB-green--5_158.webp"
+            },
+            {
+                "color": "Đỏ",
+                "price": "13990000",
+                "quantity": 500,
+                "memory": "4GB/128GB",
+                "image": "iphone-11-red-4GB-128gb.webp"
+            },
+            {
+                "color": "Vàng",
+                "price": "19900000",
+                "quantity": 500,
+                "memory": "4GB/256GB",
+                "image": "iphone-yellow-4GB-256GB1_253_2.webp"
+            },
+            {
+                "color": "Bạc",
+                "price": "12400000",
+                "quantity": 0,
+                "memory": "4GB/64GB",
+                "image": "iphone-11-back-4GB-64GB_130.webp"
+            }
+        ],
+    "details":
+        [
+            {
+                "name": "Màn hình",
+                "id_specification_category": 1,
+                "detail": [
+                    {
+                        "name": "Kích thước màn hình",
+                        "value": "6.1 inches"
+                    },
+                    {
+                        "name": "Công nghệ màn hình",
+                        "value": "IPS LCD"
+                    },
+                    {
+                        "name": "Độ phân giải màn hình",
+                        "value": "1792 x 828 pixel"
+                    },
+                    {
+                        "name": "Tính năng màn hình",
+                        "value": "True-tone"
+                    },
+                    {
+                        "name": "Tần số quét",
+                        "value": "60Hz"
+                    },
+                    {
+                        "name": "Kiểu màn hình",
+                        "value": "Tai thỏ"
+                    }
+                ]
+            },
+            {
+                "name": "Camera sau",
+                "id_specification_category": 2,
+                "detail": [
+                    {
+                        "name": "Camera sau",
+                        "value": "Camera kép 12MP:\n- Camera góc rộng: ƒ/1.8 aperture\n- Camera siêu rộng: ƒ/2.4 aperture"
+                    },
+                    {
+                        "name": "Quay video",
+                        "value": "Quay video 4K ở tốc độ 24 fps, 30 fps hoặc 60 fps"
+                    },
+                    {
+                        "name": "Tính năng camera",
+                        "value": "Retina Flash\nNhãn dán (AR Stickers)\nBan đêm (Night Mode)\nChạm lấy nét\nGóc rộng (Wide)\nGóc siêu rộng (Ultrawide) HDR Nhận diện khuôn mặt\nQuay chậm (Slow Motion)\nToàn cảnh (Panorama)\nTrôi nhanh thời gian (Time L"
+                    }
+                ]
+            },
+            {
+                "name": "Camera trước",
+                "id_specification_category": 3,
+                "detail": [
+                    {
+                        "name": "Camera trước",
+                        "value": "12 MP, ƒ/2.2 aperture"
+                    },
+                    {
+                        "name": "Quay video trước",
+                        "value": "4K@24/30/60fps, 1080p@30/60/120fps, gyro-EIS"
+                    }
+                ]
+            },
+            {
+                "name": "Vi xử lý & đồ họa",
+                "id_specification_category": 4,
+                "detail": [
+                    {
+                        "name": "Chipset",
+                        "value": "A13 Bionic"
+                    },
+                    {
+                        "name": "Loại CPU",
+                        "value": "Hexa-core"
+                    },
+                    {
+                        "name": "GPU",
+                        "value": "Apple GPU"
+                    }
+                ]
+            },
+            {
+                "name": "Giao tiếp & kết nối",
+                "id_specification_category": 5,
+                "detail": [
+                    {
+                        "name": "Công nghệ NFC",
+                        "value": "Có"
+                    },
+                    {
+                        "name": "Thẻ SIM",
+                        "value": "Nano-SIM + eSIM"
+                    },
+                    {
+                        "name": "Hệ điều hành",
+                        "value": "iOS 13 hoặc cao hơn (Tùy vào phiên bản phát hành)"
+                    },
+                    {
+                        "name": "Hồng ngoại",
+                        "value": "Không"
+                    },
+                    {
+                        "name": "Jack tai nghe 3.5",
+                        "value": "Không"
+                    },
+                    {
+                        "name": "Hỗ trợ mạng",
+                        "value": "4G"
+                    },
+                    {
+                        "name": "Wi-Fi",
+                        "value": "802.11ax Wi‑Fi 6 with 2x2 MIMO"
+                    },
+                    {
+                        "name": "Bluetooth",
+                        "value": "5.0"
+                    },
+                    {
+                        "name": "GPS",
+                        "value": "GPS/GNSS"
+                    }
+                ]
+            }
+        ]
+}
+
+export const deliveries = [
+    {
+        "id_delivery": 1,
+        "name": "Vietnam Post",
+        "price": 10000,
+        "speed": "chậm",
+        "status": 1,
+        "created_at": "03:45:06.279085",
+        "updated_at": "03:45:06.279085"
+    },
+    {
+        "id_delivery": 2,
+        "name": "GrabExpress",
+        "price": 12000,
+        "speed": "trung bình",
+        "status": 1,
+        "created_at": "03:45:55.317131",
+        "updated_at": "03:45:55.317131"
+    },
+    {
+        "id_delivery": 4,
+        "name": "J&T Express",
+        "price": 20000,
+        "speed": "hơi nhanh 1",
+        "status": 1,
+        "created_at": "03:46:42.236083",
+        "updated_at": "01:27:12.626874"
+    },
+    {
+        "id_delivery": 3,
+        "name": "Ninja Van",
+        "price": 18000,
+        "speed": "nhanh ",
+        "status": 1,
+        "created_at": "03:46:42.236083",
+        "updated_at": "01:27:17.154449"
+    },
+    {
+        "id_delivery": 8,
+        "name": "test",
+        "price": 312312,
+        "speed": "test1321",
+        "status": 1,
+        "created_at": "01:52:58.432204",
+        "updated_at": "01:53:03.695351"
+    }
+]
+
+export const vouchers = [
+    {
+        "id_voucher": 1,
+        "code": "sale5",
+        "discount": 5,
+        "max_discount": 2000000,
+        "min_amount": 10000000,
+        "is_percent": true,
+        "expired": false,
+        "end_date": "2024-08-30",
+        "created_at": "2024-07-15",
+        "updated_at": "2024-07-15"
+    },
+    {
+        "id_voucher": 2,
+        "code": "sale10",
+        "discount": 10,
+        "max_discount": 5000000,
+        "min_amount": 15000000,
+        "is_percent": true,
+        "expired": false,
+        "end_date": "2024-08-30",
+        "created_at": "2024-08-03",
+        "updated_at": "2024-08-03"
+    }
+]
+
+export const reviews = [
+    {
+        "id_review": 1,
+        "id_user": 2,
+        "id_reply": null,
+        "id_product": 1,
+        "content": "Sản phẩm này thật sự rất tuyệt đấy !",
+        "created_at": "2024-07-12",
+        "updated_at": "2024-07-12",
+        "name": "Nguyễn Admin",
+        "avatar": null,
+        "product_name": "iPhone 11 | Chính hãng VN/A",
+        "replies": [
+            {
+                "id_review": 3,
+                "id_user": 8,
+                "id_reply": 1,
+                "id_product": 1,
+                "content": "Tôi rất thich sản phẩm này cũng như chất lượng dịch vụ tuyệt vời của Stech, các bạn nên mua nha.",
+                "created_at": "2024-08-04",
+                "updated_at": "2024-08-04",
+                "name": "Nguyễn Tiến",
+                "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJ43nfhc50KJuYe0_TIfsPhb9mDWeZMbEJtOA8GKqbOhgVl2mU6=s96-c",
+                "product_name": "iPhone 11 | Chính hãng VN/A"
+            }
+        ]
+    },
+    {
+        "id_review": 3,
+        "id_user": 8,
+        "id_reply": 1,
+        "id_product": 1,
+        "content": "Tôi rất thich sản phẩm này cũng như chất lượng dịch vụ tuyệt vời của Stech, các bạn nên mua nha.",
+        "created_at": "2024-08-04",
+        "updated_at": "2024-08-04",
+        "name": "Nguyễn Tiến",
+        "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJ43nfhc50KJuYe0_TIfsPhb9mDWeZMbEJtOA8GKqbOhgVl2mU6=s96-c",
+        "product_name": "iPhone 11 | Chính hãng VN/A"
     }
 ]

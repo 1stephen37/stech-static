@@ -1,20 +1,20 @@
 'use client';
-import Heading from '@/components/sections/Heading';
+import Heading from '@/components/layouts/Heading';
 import React, {useState} from 'react';
-import ShopModel from "@/models/shop/shop.model";
 import {FaMapMarker, FaPhoneAlt, FaGithub, FaFacebook, FaInstagramSquare, FaLinkedin} from "react-icons/fa";
 import {MdEmail} from "react-icons/md";
 import Link from "next/link";
 import {Button} from "@/components/ui/button";
+import {shop} from '@/app/constants'
 
 function Page() {
     const [showForm, setShowForm] = useState(false);
-    const {data: shop} = ShopModel.GetInformationShop();
+
     return (
         <>
-            <section className="container ">
+            <section className="container min-h-[57dvh]">
                 <Heading title={'Liên hệ'}/>
-                <section className={'mt-[4rem] bg-white shadow-md p-5 grid grid-cols-2 gap-x-10'}>
+                <section className={'mt-[4rem] bg-white shadow-lg rounded-lg border border-gray-300 p-5 grid grid-cols-2 gap-x-10'}>
                     <section className={''}>
                         <h2 className="heading">Thông tin liên hệ</h2>
                         {shop && (
@@ -33,8 +33,6 @@ function Page() {
                                 </div>
                             </div>
                         )}
-                        <Button onClick={() => setShowForm(true)} className="mt-10 py-[2rem]">Gửi thông tin đến chúng
-                            tôi ngay !</Button>
                     </section>
                     <section>
                         <h2 className="heading">Mạng xã hội</h2>
@@ -66,10 +64,12 @@ function Page() {
                         </div>
                     </section>
                 </section>
+                <Button onClick={() => setShowForm(true)} className="mt-10 py-[2rem] mx-auto">Gửi thông tin đến chúng
+                    tôi ngay !</Button>
                 {showForm && (
                     <div onClick={() => setShowForm(false)}
                          className="fixed left-0 z-50 top-0 bg-[rgba(0,0,0,0.7)] grid place-items-center w-full h-screen">
-                        <div onClick={(e) => e.stopPropagation()} className="bg-white py-5 px-10 rounded">
+                        <div onClick={(e) => e.stopPropagation()} className="bg-white py-5 px-10 rounded-lg">
                             <div className="flex flex-col items-center justify-center h-full dark:bg-gray-900">
                                 <h2 className="heading">Liên hệ trực tiếp với chúng tôi</h2>
                                 <p className="mb-8 text-[1.6rem] mt-3 font-normal text-gray-500 dark:text-gray-400">Liên
