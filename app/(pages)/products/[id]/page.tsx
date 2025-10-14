@@ -19,7 +19,7 @@ import RelatedProducts from "@/components/layouts/RelatedProducts";
 function Page() {
     const router = useRouter();
     const limitDetail = 1;
-    const [mainImageSrc, setMainImageSrc] = useState('');
+    const [mainImageSrc, setMainImageSrc] = useState('/images');
     const [indexImage, setIndexImage] = useState(0);
     const [indexColor, setIndexColor] = useState(0);
     const [priceNow, setPriceNow] = useState('');
@@ -124,7 +124,7 @@ function Page() {
                                                 initial={{opacity: 0}}
                                                 animate={{opacity: 1}}
                                                 transition={{duration: 2}}
-                                                key={index} className={`relative border border-solid border-gray-400 rounded-md shadow-md hover:border-orange-500
+                                                key={index} className={`relative  border border-solid border-gray-400 rounded-md shadow-md hover:border-orange-500
                                                 cursor-pointer w-[100px] h-[100px] ${indexImage === index ? 'border-orange-500' : ''}`}
                                                 onClick={() => switchImage(index)}>
                                                 <Image fill sizes={'100'}

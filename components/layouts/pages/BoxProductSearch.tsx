@@ -6,7 +6,7 @@ import {motion} from "framer-motion";
 import {useRouter} from "next/navigation";
 
 type Product = {
-    id: string;
+    id: number;
     name: string;
     image: string
     brand: string;

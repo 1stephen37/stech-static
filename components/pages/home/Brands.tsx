@@ -38,7 +38,7 @@ const variants = {
 
 function Brands() {
     return (
-        <section className="w-full h-[10rem] mt-[4rem] dark:bg-primary rounded-[5px] flex justify-between items-center">
+        <section className="w-full h-max xl:h-[10rem] mt-[4rem] dark:bg-primary rounded-[5px] flex flex-col md:flex-row justify-between items-center">
             {imagesBrands.map((image, index) => (
                 <motion.div variants={variants} initial={'hidden'} animate={'enter'}
                             transition={{ease: 'linear', delay: 0.5, duration: 1}}

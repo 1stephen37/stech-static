@@ -80,7 +80,7 @@ html {
 }
 
 .p {
-  @apply text-[1.8rem] font-normal
+  @apply text-[1.8rem] font-normal leading-[120%]
 }
 
 select {

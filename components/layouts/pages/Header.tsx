@@ -17,7 +17,6 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
 import {useAppSelector, useAppDispatch} from '@/redux/hooks'
-import {getInitialFromLocalStorage, logOut} from '@/redux/reducers/user.reducer'
 import {useRouter} from 'next/navigation';
 // import ProductsModel from "@/models/products/products.model";
 import BoxProductSearch from "@/components/layouts/pages/BoxProductSearch";
@@ -39,6 +38,7 @@ import {useAppContext} from "@/context/AppContext";
 // import Alert from "@/components/Alert";
 // import BrandsModel from "@/models/brands/brands.model";
 // import {getLinkFromLocalStorage, linkChange, saveLinkToLocalStorage} from "@/redux/reducers/router.reducer";
+import {brands, products} from "@/app/constants";
 
 const links = [
     {
@@ -62,17 +62,14 @@ export default function Header() {
     const dispatch = useAppDispatch();
 
     const router = useRouter();
-    // const {data: brandsList} = BrandsModel.GetBrandsByLimit(10);
-    // const {data: productsList} = ProductsModel.GetSaleProducts(0, 4);
+    const brandsList = brands.slice(0, 10);
+    const productsList = products.sort((a, b) => b.sale_off - a.sale_off).slice(0, 10);
     const [showSearchBox, setShowSearchBox] = useState(false);
-    // const [showConfirmLogOut, setShowConfirmLogOut] = useState(false);
-    // const [showAlertLogOut, setShowAlertLogOut] = useState(false);
-    // const [isLogOut, setIsLogOut] = useState(false);
     const [cartLength, setCartLength] = useState(0);
     const [header, setHeader] = useState(false);
     useEffect(() => {
         const listenerScroll = () => {
-            window.scrollY > 50 ? setHeader(true) : setHeader(false);
+            setHeader(window.scrollY > 50);
         };
         window.addEventListener('scroll', listenerScroll);
         return () => window.removeEventListener('scroll', listenerScroll);
@@ -84,20 +81,24 @@ export default function Header() {
     const cart = useAppSelector((state) => state.cart.cart);
     // const previous = useAppSelector(state => state.router.link);
     useEffect(() => {
-        dispatch(getInitialFromLocalStorage());
         dispatch(getCartFromLocalStorage());
         // dispatch(getLinkFromLocalStorage());
     }, []);
     useEffect(() => {
         if (cart.length > 0) {
-            let total = cart.reduce((total, item) => total + item.quantity, 0);
+            const total = cart.reduce((total, item) => total + item.quantity, 0);
             setCartLength(total);
         } else {
             setCartLength(0);
         }
     }, [cart]);
 
-    // const {data: productsListSearch, isLoading: isSearching} = ProductsModel.GetProductsByKeyword(4, search);
+    const [productsListSearch, setProductsListSearch] = useState<ProductBox[]>([]);
+
+    useEffect(() => {
+        const productsList = products.filter(p => p.name.toLowerCase().includes(searchContent.toLowerCase())).sort((a, b) => Number(b.views) - Number(a.views)).slice(0, 4);
+        setProductsListSearch(productsList);
+    }, [searchContent]);
     const handleSearchSubmit: FormEventHandler<HTMLFormElement> = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         router.push(`/products?search=${searchContent}`);
@@ -112,39 +113,9 @@ export default function Header() {
         }
     }
 
-    const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (searchContent === '') {
-            setShowSearchBox(false)
-        } else {
-            setShowSearchBox(true)
-        }
+    const handleInputFocus = () => {
+        if (searchContent === '') setShowSearchBox(false); else setShowSearchBox(true);
     }
-
-    // const handleLogOut = () => {
-    //     dispatch(linkChange(path))
-    //     dispatch(saveLinkToLocalStorage())
-    //     setShowConfirmLogOut(true);
-    // }
-    //
-    // const handleSignIn = () => {
-    //     dispatch(linkChange(path))
-    //     dispatch(saveLinkToLocalStorage())
-    // }
-
-    // useEffect(() => {
-    //     if (isLogOut) {
-    //         dispatch(logOut());
-    //         setIsLogOut(false);
-    //         setTimeout(() => {
-    //             setShowAlertLogOut(true);
-    //             if (previous) {
-    //                 router.push(previous);
-    //             } else {
-    //                 router.push('/');
-    //             }
-    //         }, 500)
-    //     }
-    // }, [isLogOut]);
 
     return (
         <>
@@ -185,32 +156,34 @@ export default function Header() {
                                         <NavigationMenuLink asChild>
                                             <div className={'grid grid-cols-2'}>
                                                 <div className="">
-                                                    <h1 className={`pl-10 text-2xl font-semibold`}>Các Hãng điện thoại
+                                                    <h1 className={`pl-10 text-2xl font-semibold`}>Các Hãng điện
+                                                        thoại
                                                         phổ
                                                         biến</h1>
                                                     <div className="flex flex-col gap-5 mt-5">
                                                         <div className="grid grid-cols-2 gap-5">
-                                                            {/*{brandsList && brandsList.map((brand, index) => (*/}
-                                                            {/*    <Link key={index}*/}
-                                                            {/*          href={`/products?id_brand=${brand.id_brand}`}*/}
-                                                            {/*          className="cursor-pointer pl-10 capitalize text-2xl">*/}
-                                                            {/*        {brand.name}*/}
-                                                            {/*    </Link>*/}
-                                                            {/*))}*/}
+                                                            {brandsList.map((brand, index) => (
+                                                                <Link key={index}
+                                                                      href={`/products?id_brand=${brand.id_brand}`}
+                                                                      className="cursor-pointer pl-10 capitalize text-2xl">
+                                                                    {brand.name}
+                                                                </Link>
+                                                            ))}
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div className="">
-                                                    <h1 className={`text-center text-2xl font-semibold`}>Các sản phẩm
+                                                    <h1 className={`text-center text-2xl font-semibold`}>Các sản
+                                                        phẩm
                                                         điện
                                                         thoại Khuyến mãi</h1>
                                                     <div className="flex flex-col gap-5 mt-5">
-                                                        {/*{productsList && productsList.map((product, index) => (*/}
-                                                        {/*    <Link key={index} className={'text-2xl'}*/}
-                                                        {/*          href={`/products/${product.id_product}`}>*/}
-                                                        {/*        {product.name} - {product.sale_off}%*/}
-                                                        {/*    </Link>*/}
-                                                        {/*))}*/}
+                                                        {productsList && productsList.map((product, index) => (
+                                                            <Link key={index} className={'text-2xl'}
+                                                                  href={`/products/${product.id_product}`}>
+                                                                {product.name} - {product.sale_off}%
+                                                            </Link>
+                                                        ))}
                                                     </div>
                                                 </div>
                                             </div>
@@ -236,15 +209,16 @@ export default function Header() {
                             {showSearchBox && (
                                 <div onClick={() => setShowSearchBox(true)}
                                      className="absolute group: px-8 py-5 border border-solid border-black bg-white shadow-md  rounded w-full h-max top-[7rem] grid grid-cols-2 gap-5">
-                                    {/*{productsListSearch && productsListSearch.map((product, index) => (*/}
-                                    {/*    <BoxProductSearch name={product.name} image={product.image}*/}
-                                    {/*                      sale={product.sale_off} price={product.price.toString()}*/}
-                                    {/*                      key={index} brand={product.brand_name} id={product.id_product}*/}
-                                    {/*                      index={index}/>*/}
-                                    {/*))}*/}
-                                    {/*{productsListSearch && productsListSearch.length <= 0 && (*/}
-                                    {/*    <p className="text-2xl">Không tìm thấy sản phẩm phù hợp</p>*/}
-                                    {/*)}*/}
+                                    {productsListSearch && productsListSearch.map((product, index) => (
+                                        <BoxProductSearch name={product.name} image={product.image}
+                                                          sale={product.sale_off} price={product.price.toString()}
+                                                          key={index} brand={product.brand_name}
+                                                          id={product.id_product}
+                                                          index={index}/>
+                                    ))}
+                                    {productsListSearch && productsListSearch.length <= 0 && (
+                                        <p className="text-2xl">Không tìm thấy sản phẩm phù hợp</p>
+                                    )}
                                 </div>
                             )}
                         </form>

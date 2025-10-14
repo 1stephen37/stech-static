@@ -6,11 +6,13 @@ import SectionSale from "@/components/pages/home/SectionSale";
 import SectionCategories from '@/components/pages/home/SectionCategories';
 import News from '@/components/pages/home/News';
 import Reviews from "@/components/pages/home/Reviews";
+import FrontendNoticeModal from '@/components/layouts/FrontendNoticeModal';
 
 export default function Page() {
 
     return (
         <section className="container relative">
+            <FrontendNoticeModal />
             <Hero/>
             <Brands/>
             <SectionSale/>

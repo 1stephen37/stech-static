@@ -5,7 +5,6 @@ import React from "react";
 import {ThemeProvider} from "@/app/theme-provider";
 import StoreProvider from "@/app/StoreProvider";
 import {AppProvider} from "@/context/AppContext";
-import {Toaster} from 'react-hot-toast';
 
 const geistSans = localFont({
     src: "./fonts/GeistVF.woff",

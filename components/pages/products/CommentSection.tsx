@@ -76,7 +76,8 @@ const CommentSection = () => {
                     </h2>
                     <div className="">
                         <textarea className="w-full h-[10rem] text-2xl border outline-0 rounded-lg border-gray-400 p-4"
-                        >Màu sắc và kiểu dáng...</textarea>
+                                  defaultValue={'Màu sắc và kiểu dáng...'}
+                        ></textarea>
                         <Button onClick={() => window.alert('Đây chỉ là giao diện, không thể thực hiện chức năng')}
                                 size={'default'}>Gửi đánh giá</Button>
                     </div>
