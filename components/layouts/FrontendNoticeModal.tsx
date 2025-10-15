@@ -1,9 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { X, Code, Zap, Globe } from 'lucide-react';
+import { X, Zap, Globe } from 'lucide-react';
 
-const LOCAL_STORAGE_KEY = 'demo_modal_shown_v3'; // Thay đổi key để hiển thị lại thông báo mới
+const LOCAL_STORAGE_KEY = 'demo_modal_shown_v3';
 
 const FrontendNoticeModal: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -54,7 +54,7 @@ const FrontendNoticeModal: React.FC = () => {
 
                 {/* Nội dung chi tiết */}
                 <p className="text-gray-700 mb-6 p text-lg">
-                    Dự án này là phiên bản trưng bày giao diện (UI/UX) của ứng dụng mua sắm, được triển khai dưới dạng **ứng dụng tĩnh (Static Application)** trên Vercel.
+                    Dự án này là phiên bản trưng bày giao diện (UI/UX) của ứng dụng mua sắm, được triển khai dưới dạng **ứng dụng tĩnh (Static Application) trên Vercel.
                 </p>
 
                 {/* Sử dụng layout 2 cột trên desktop để tận dụng chiều rộng */}
@@ -73,6 +73,9 @@ const FrontendNoticeModal: React.FC = () => {
                             </li>
                             <li className="font-semibold">
                                 Định tuyến & Cấu trúc: Cấu trúc Next.js App Router hoàn chỉnh.
+                            </li>
+                            <li className="font-semibold">
+                                Tìm kiếm và lọc sản phẩm: tìm sản phẩm trên thanh tìm kiếm và lọc theo thương hiệu.
                             </li>
                         </ul>
                     </div>

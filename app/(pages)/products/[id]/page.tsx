@@ -281,7 +281,7 @@ function Page() {
                                     })}
                                 </div>
                                 <Button onClick={() => setShowDetail(true)} variant={'secondary'}
-                                        className="mt-5 w-full py-7 rounded text-3xl">Xem cấu hình chi
+                                        className="mt-5 w-full py-5 text-3xl">Xem cấu hình chi
                                     tiết</Button>
                             </div>
                         </section>

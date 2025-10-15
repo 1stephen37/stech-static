@@ -43,12 +43,6 @@ function Page() {
     const [isSearching, setIsSearching] = useState(false);
     const [productsList, setProductsList] = useState<ProductBox[]>(products.sort((a, b) => Number(b.views) - Number(a.views)).slice(0, limit));
 
-    // const {
-    //     data: productsListSearch,
-    //     paging: searchPaging,
-    //     isLoading: isSearching
-    // } = ProductsModel.GetProductsByKeywordAndPage(limit, page, search, idBrand);
-
     const [productsListSearch, setProductsListSearch] = useState<ProductBox[]>([]);
 
     useEffect(() => {
@@ -69,38 +63,6 @@ function Page() {
         window.history.pushState({}, '', newUrl);
     }, [search, idBrand, countPage]);
 
-    // useEffect(() => {
-    //     // 1. Logic lọc
-    //     let filteredProducts = products;
-    //
-    //     if (search) {
-    //         filteredProducts = filteredProducts.filter(p => p.name.toLowerCase().includes(search.toLowerCase()));
-    //     }
-    //
-    //     if (idBrand !== 0) {
-    //         filteredProducts = filteredProducts.filter(p => Number(p.id_brand) === idBrand);
-    //     }
-    //
-    //     // 2. Tính lại countPage và cập nhật productsList
-    //     const newCountPage = Math.ceil(filteredProducts.length / limit);
-    //
-    //     setCountPage(newCountPage);
-    //
-    //     // 3. Cập nhật productsList cho trang hiện tại
-    //     const startIndex = (page - 1) * limit;
-    //     const endIndex = page * limit;
-    //
-    //     setProductsList(
-    //         filteredProducts
-    //             .sort((a, b) => Number(b.views) - Number(a.views))
-    //             .slice(startIndex, endIndex)
-    //     );
-    //
-    //     // 4. Log để kiểm tra (tùy chọn)
-    //     console.log(`[EFFECT] Search: ${search}, Brand: ${idBrand}, Page: ${page}, New Count: ${newCountPage}`);
-    //
-    // }, [search, idBrand, page]); // 🔑 Chỉ theo dõi các biến điều khiển chính
-
     useEffect(() => {
         if (id_brand) {
             setIdBrand(Number(id_brand));
@@ -118,15 +80,18 @@ function Page() {
 
     useEffect(() => {
         if (idBrand !== 0) {
-            const length = products.filter(a => Number(a.id_brand) === Number(id_brand)).length;
-            setCountPage(Math.ceil(length / limit));
-            console.log(countPage);
+            if (search) {
+                const productsList = products.filter(p => p.name.toLowerCase().includes(search.toLowerCase())).filter(a => Number(a.id_brand) === Number(idBrand)).sort((a, b) => Number(b.views) - Number(a.views)).slice(0, limit);
+                setCountPage(Math.ceil(productsList.length / limit));
+                setIsSearching(false);
+                setProductsListSearch(productsList);
+            } else {
+                const length = products.filter(a => Number(a.id_brand) === Number(idBrand)).length;
+                setCountPage(Math.ceil(length / limit));
+            }
         }
-    }, [idBrand]);
+    }, [idBrand, countPage]);
 
-    // useEffect(() => {
-    //     console.log(countPage);
-    // }, [countPage]);
 
     const handleSwitchPage = (page: number) => {
         setPage(page);

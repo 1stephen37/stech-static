@@ -20,7 +20,8 @@ Dự án tập trung vào việc mô phỏng trải nghiệm người dùng cu�
 
 * **🛒 Quản lý Giỏ hàng (Cart Logic):** Chức năng **thêm/xóa/cập nhật số lượng sản phẩm** trong giỏ hàng hoạt động hoàn toàn bằng **logic phía Client (Client-Side Logic)**, sử dụng trạng thái cục bộ (ví dụ: Context API hoặc LocalStorage).
 * **📂 Cấu trúc Next.js App Router:** Trưng bày cách tổ chức file và định tuyến theo cấu trúc hiện đại của Next.js, bao gồm **Group Routing** (`(account)`, `(pages)`) và **Dynamic Routing** (`products/[id]`).
-
+* **📂 Tìm kiếm và lọc sản phẩm:** tìm sản phẩm trên thanh tìm kiếm và lọc theo thương hiệu.
+   
 [//]: # (* **📱 Thiết kế Đáp ứng &#40;Responsive Design&#41;:** Giao diện được tối ưu hóa cho Mobile, Tablet và Desktop.)
 
 ---
@@ -47,7 +48,7 @@ Dự án sử dụng **Next.js App Router**, tổ chức các trang và đườn
 | `(pages)/cart/page.tsx`          | `/cart`              | **Giỏ Hàng** (Logic hoạt động)  | (pages)      |
 | `(pages)/checkout/page.tsx`      | `/checkout`          | Trang Thanh Toán (Giao diện)    | (pages)      |
 | `(pages)/products/page.tsx`      | `/products`          | **Trang Sản Phẩm** (giao diện)  | (pages)      |
-| `(pages)/products/[id]/page.tsx` | `/products/abc`      | **Chi Tiết Sản Phẩm** (Dynamic) | (pages)      |
+| `(pages)/products/[id]/page.tsx` | `/products/:id`      | **Chi Tiết Sản Phẩm** (Dynamic) | (pages)      |
 | `(account)/sign-in/page.tsx`     | `/sign-in`           | Đăng Nhập (Giao diện)           | (account)    |
 | `(account)/sign-up/page.tsx`     | `/sign-up`           | Đăng Ký (Giao diện)             | (account)    |
 
