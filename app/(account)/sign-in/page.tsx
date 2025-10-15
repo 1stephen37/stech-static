@@ -24,7 +24,7 @@ type Inputs = {
 export default function Page() {
     const [showAlert, setShowAlert] = useState(false);
     const router = useRouter();
-    const {register, handleSubmit, formState: {errors}}
+    const {register, formState: {errors}}
         = useForm<Inputs>();
     const [showPassword, setShowPassword] = useState(false);
 
