@@ -36,27 +36,9 @@ import {MdOutlineHistory} from "react-icons/md";
 import {useAppContext} from "@/context/AppContext";
 // import Confirm from "@/components/Confirm";
 // import Alert from "@/components/Alert";
-// import BrandsModel from "@/models/brands/brands.model";
 // import {getLinkFromLocalStorage, linkChange, saveLinkToLocalStorage} from "@/redux/reducers/router.reducer";
-import {brands, products} from "@/app/constants";
-
-const links = [
-    {
-        path: '/', name: "Trang chủ"
-    },
-    {
-        path: '/products', name: "sản phẩm"
-    },
-    {
-        path: '/policy', name: "chính sách"
-    },
-    {
-        path: '/about', name: "về chúng tôi"
-    },
-    {
-        path: '/contact', name: "liên hệ"
-    },
-]
+import {brands, products, links} from "@/app/constants";
+import MobileNav from "@/components/layouts/pages/MobileNav";
 
 export default function Header() {
     const dispatch = useAppDispatch();
@@ -123,7 +105,7 @@ export default function Header() {
             <header
                 className={`w-full h-max py-[2rem] sticky top-0 z-30 bg-white transition-all dark:bg-accent ${header ? 'shadow-lg' : ''}`}>
                 <div className="container flex justify-between">
-                    <div className="flex gap-5 items-center">
+                    <div className="gap-5 items-center hidden xl:flex">
                         <Logo href={'/'}/>
                         <NavigationMenu>
                             <NavigationMenuList>
@@ -193,7 +175,7 @@ export default function Header() {
                             </NavigationMenuList>
                         </NavigationMenu>
                     </div>
-                    <div className="w-max flex items-center gap-5 relative">
+                    <div className="w-max hidden xl:flex items-center gap-5 relative">
                         <form onSubmit={handleSearchSubmit} className="relative h-max">
                             <input
                                 value={searchContent}
@@ -233,7 +215,7 @@ export default function Header() {
                         {/*    </SheetContent>*/}
                         {/*</Sheet>*/}
                     </div>
-                    <div className="flex gap-5 items-center">
+                    <div className="hidden xl:flex gap-5 items-center">
                         {isLogin && userInformation ? (
                             <DropdownMenu>
                                 <DropdownMenuTrigger
@@ -296,6 +278,10 @@ export default function Header() {
                                      text-white rounded-full py-[0.2rem] px-[0.6rem] text-2xl">{cartLength}</span>
                             )}
                         </Link>
+                    </div>
+                    <div className="mobile-menu w-full flex justify-between">
+                        <Logo href={'/'}/>
+                        <MobileNav/>
                     </div>
                 </div>
             </header>

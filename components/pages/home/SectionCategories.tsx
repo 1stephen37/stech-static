@@ -29,14 +29,24 @@ const SectionCategories = () => {
     return (
         <section className="w-full h-max mt-[4rem]">
             <h1 className="text-center heading">Các sản phẩm được xem nhiều</h1>
-            <div className="flex w-max mt-10 mx-auto gap-10">
+            <div className="hidden xl:flex w-max mt-10 mx-auto gap-10">
                 {Brands?.map((brand, index) => (
                     <div onClick={() => handleChangeBrand(index)} className={cn(`capitalize select-none cursor-pointer shadow-md rounded
                      px-10 py-3 text-center text-[2rem] ${indexBrand === index ? 'bg-[rgba(0,0,0,0.75)] text-[rgba(255,255,255,1)]' : ''}`)}
                          key={index}>{brand.name}</div>
                 ))}
             </div>
-            <div className="h-max mt-10 grid grid-cols-5 gap-y-10 gap-x-10">
+            <div className="flex xl:hidden w-max mt-10 mx-auto gap-10">
+                {Brands?.map((brand, index) => {
+                    if (index < 2) return (
+                        <div onClick={() => handleChangeBrand(index)} className={cn(`capitalize select-none cursor-pointer shadow-md rounded
+                     px-10 py-3 text-center text-[2rem] ${indexBrand === index ? 'bg-[rgba(0,0,0,0.75)] text-[rgba(255,255,255,1)]' : ''}`)}
+                             key={index}>{brand.name}</div>
+                    )
+                })}
+            </div>
+            <div
+                className="h-max mt-10 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 grid-cols-1 gap-y-10 gap-x-10">
                 {productsList?.map((product, index) => (
                     <BoxProduct key={index} id={product.id_product} sale={product.sale_off}
                                 price={product.price.toString()} index={index} views={parseInt(product.views)}

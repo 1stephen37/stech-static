@@ -35,7 +35,7 @@ function BoxProduct({id, name, image, brand, price, sale, index, views, memory, 
                 onClick={() => handleDetailProduct()}
                 whileHover={{scale: 1.05, boxShadow: '0.5px 0.5px 5px 2px rgba(0, 0, 0, 0.3)'}}
                 transition={{duration: 0.1}}
-                className={"relative max-w-[25rem] h-[34rem] shadow-md bg-white group group-hover:shadow-2xl py-5 px-10 rounded-[5px]"}>
+                className={"relative mx-auto max-w-[25rem] h-[34rem] shadow-md bg-white group group-hover:shadow-2xl py-5 px-10 rounded-[5px]"}>
                 <div className="w-auto h-auto max-h-[200px] group cursor-pointer mx-auto">
                     <Image width={200} height={200} sizes={'max'} className="object-contain max-h-[200px] mx-auto"
                            src={ApiImage + image}

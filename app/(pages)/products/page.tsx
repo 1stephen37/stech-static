@@ -142,7 +142,7 @@ function Page() {
                             `)} key={index}>{filter.filterName}</div>
                             ))}
                         </div>
-                        <div className="w-full grid grid-cols-5 gap-6">
+                        <div className="w-full grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 grid-cols-1 gap-6">
                             {isSearching && (
                                 <Skeleton className="w-[200px] h-[120px] rounded"/>
                             )}
@@ -186,7 +186,7 @@ function Page() {
                             `)} key={index}>{filter.filterName}</div>
                             ))}
                         </div>
-                        <div className="w-full grid grid-cols-5 gap-6">
+                        <div className="w-full grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 grid-cols-1 gap-6">
                             {productsList.map((product, index) => (
                                 <BoxProduct key={index} id={product.id_product} sale={product.sale_off}
                                             price={product.price.toString()} index={index}

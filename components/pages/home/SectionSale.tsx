@@ -13,7 +13,7 @@ function SectionSale() {
         <section className="w-full mt-[4rem] h-max">
             <h1 className="heading w-max">Sản phẩm giảm giá
                 sốc !</h1>
-            <div className="h-max mt-10 grid grid-cols-5 gap-y-10 gap-x-10">
+            <div className="h-max mt-10 grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 grid-cols-1 gap-y-10 gap-x-10">
                 {productsList.map((product, index) => (
                     <BoxProduct key={index} id={product.id_product} sale={product.sale_off}
                                 price={product.price} index={index} views={parseInt(product.views)}

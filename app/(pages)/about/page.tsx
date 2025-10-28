@@ -39,9 +39,9 @@ function Page() {
                     </div>
                     <div className="mt-12 lg:mt-0">
                         <h2 className="heading text-gray-900">Sứ mệnh của chúng tôi</h2>
-                        <div className="flex gap-5 items-center">
-                            <div className="w-max h-max bg-white shadow-xl">
-                                <Image alt={''} width={450} height={550} className={'rounded w-[100rem]'}
+                        <div className="flex flex-col xl:flex-row gap-5 items-center">
+                            <div className="xl:w-fit mx-auto w-3/4 h-max bg-white shadow-xl">
+                                <Image alt={''} width={450} height={550} className={'rounded '}
                                        src={'/images/sections/sm.png'}/>
                             </div>
                             <p className="mt-3 max-w-[70%] p">
@@ -64,7 +64,7 @@ function Page() {
                 </div>
                 <div className="mt-10">
                     <h2 className="heading text-gray-900">Cam kết của chúng tôi</h2>
-                    <ul className="mt-5 grid grid-cols-3 gap-x-[3rem]">
+                    <ul className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-[3rem]">
                         <li className="flex items-center">
                             <div className="flex-shrink-0">
                                 <svg className="h-6 w-6 text-green-500" viewBox="0 0 20 20" fill="currentColor"

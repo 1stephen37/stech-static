@@ -8,6 +8,24 @@ export const transformCurrency = (value: number): string => {
     }).format(value);
 }
 
+export const links = [
+    {
+        path: '/', name: "Trang chủ"
+    },
+    {
+        path: '/products', name: "sản phẩm"
+    },
+    {
+        path: '/policy', name: "chính sách"
+    },
+    {
+        path: '/about', name: "về chúng tôi"
+    },
+    {
+        path: '/contact', name: "liên hệ"
+    },
+]
+
 export const products: ProductBox[] = [
     {
         "id_product": 1,

@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export default function Hero() {
     return (
-        <section className="w-full mt-[4rem] bg-primary xl:min-h-[40rem] xl:max-h-[45dvh] rounded-[5px]">
-            <Carousel className="w-full h-full xl:min-h-[40rem] flex py-10 px-10 xl:px-20">
+        <section className="w-full mt-[2rem] xl:mt-[4rem] bg-primary xl:min-h-[40rem] xl:max-h-[45dvh] rounded-[5px]">
+            <Carousel className="w-full h-full xl:min-h-[40rem] flex py-10 px-10 xl:px-20 overflow-hidden">
                 <CarouselContent className="w-full h-full">
                     <CarouselItem className="h-full grid grid-cols-1 xl:grid-cols-2 place-items-center">
                         <div className="text-center">
@@ -33,7 +33,7 @@ export default function Hero() {
                                 <Button size={'lg'} variant={'secondary'}>Mua ngay</Button>
                             </div>
                         </div>
-                        <div className="relative mx-auto w-full xl:w-[70rem] select-none cursor-pointer h-[30rem]">
+                        <div className="relative mx-auto w-[80%] xl:w-[70rem] select-none cursor-pointer h-[30rem]">
                             <Image alt={''} sizes={'(max-width: 1200px) 5   0vw'} fill className="object-cover"
                                    src={'/images/sections/iPhone-15-Pro-Max-running-Genshin-Impact.png'}/>
                         </div>

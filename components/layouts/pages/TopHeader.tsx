@@ -24,7 +24,7 @@ function TopHeader() {
                         repeat: Infinity,
                         ease: "linear",
                     },
-                }} className="text-center select-none cursor-pointer text-secondary leading-[5rem] text-[1.5rem]">
+                }} className="text-center select-none cursor-pointer text-secondary leading-[5rem] text-[1.5rem] hidden xl:block">
                     Chương trình khuyến mãi siêu ưu đãi dành cho hội viên thân thiết - Giảm tới 50% <Link className="font-bold text-[1.5rem] hover:underline" href="/shop">Mua
                     Ngay</Link>
                 </motion.div>

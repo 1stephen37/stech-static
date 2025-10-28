@@ -15,7 +15,7 @@ function Footer() {
                             <h1 className="text-[1.6rem] w-max">Mang công nghệ đến tất cả mọi người</h1>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 xl:gap-x-[15rem] sm:grid-cols-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:gap-x-[15rem] xl:grid-cols-3">
                         <div className='pt-3'>
                             <h2 className="mb-4 text-[2rem] font-semibold text-gray-900 uppercase dark:text-white">Về
                                 chúng tôi</h2>
